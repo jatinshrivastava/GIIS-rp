@@ -1,0 +1,7 @@
+{% extends 'base_user.html' %} {% block title %}{{ user.username }}{% endblock %} {% block page_content %}
+<div class="col-md-8 offset-md-2 mt-center">{% if user.is_authenticated %} Hi {{ user.username }}!
+    <p><a href="{% url 'logout' %}">logout</a></p>
+    {% else %}
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a> {% endif %}
+</div>{% endblock %}
