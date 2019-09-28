@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def conversation_index(request):
+    return render(request, 'conversation_index.html', {})

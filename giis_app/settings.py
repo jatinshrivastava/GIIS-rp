@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'circular_feed',    
-    'user_management', 
+    'user_management',
+    'conversation_interface', 
 ]
 
 MIDDLEWARE = [
