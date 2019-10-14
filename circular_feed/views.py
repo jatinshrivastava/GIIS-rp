@@ -8,8 +8,8 @@ def circular_index(request):
     }
     return render(request, "circular_index.html", context)
 
-def circular_detail(request, pk):
-    circular = Circular.objects.get(pk=pk)
+def circular_detail(request, pcircular):
+    circular = Circular.objects.get(pk=pcircular)
     context = {
         "circular": circular,
     }

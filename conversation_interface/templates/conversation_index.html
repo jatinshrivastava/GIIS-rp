@@ -1,6 +1,14 @@
-{% extends "base_circular.html" %} {% block page_content %}
+{% extends "base_user.html" %} {% block page_content %}
 <div class="col-md-8 offset-md-2 mt-center">
-    <h2>This is User Interface App Page</h2>
+    <h2>Staff index for {{ circular.title }}</h2>
+    <hr class="w-50 mx-0"> {% for MessageStatus in messageOfParticularCircular %}{% for CustomUser in users %}{% if MessageStatus.created_by == CustomUser.username %}
+    <a class="black-text" href="{% url 'staff_messages' pcircular=MessageStatus.circular_id.pk receiver=MessageStatus.created_by %}">
+        <h4 class="h4-responsive mt-5"><strong>Parent Name: </strong>{{ CustomUser.get_full_name }} <strong>Student Name: </strong>{{CustomUser.student_name}} <strong>Status: </strong>{{MessageStatus.status}}</h4>
+        <h5 class="h5-responsive">{{ MessageStatus.last_message | slice:":50" }}</h5>
+        <small>
+        {{ MessageStatus.last_message_time.date }} at {{ MessageStatus.last_message_time.time }} &nbsp;
+        </small></a>
+    <hr> {% else %}{% endif %}{% endfor %}{% endfor %}
 
 </div>
 {% endblock %}

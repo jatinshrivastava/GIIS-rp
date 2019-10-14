@@ -1,0 +1,54 @@
+{% extends "base_user.html" %} {% block page_content %}
+<div class="col-md-8 offset-md-2 mt-center">
+    <h1 class="h1-responsive text-center">{{ circular.title }}</h1>
+    <hr class="w-25">
+    <h4 class="h4-responsive text-center"><strong>Parent Name: </strong>{{ users.get_full_name }} <strong>Student Name: </strong>{{users.student_name}} {% if user.is_staff %}<strong>Status: </strong>{{message_status_data.status}} {% else%} {%endif %}</h4>
+    <hr class="w-100">
+    <h3 class="h3-responsive">Messages:</h3>
+    <hr class="w-25 mx-0">
+    <form class="mt-5" method="post">
+        {% csrf_token %} {% if request.user.is_staff %} {% for compose in composes %} {% if compose.created_by_staff_username == request.user.username %}
+        <div class=text-right>
+            <p>
+                <b>{{ compose.created_by_staff_username }}:</b>
+            </p>
+            <p>{{ compose.message }}<br>
+                <small>&nbsp;&nbsp;On {{compose.created_on.date }} at {{compose.created_on.time }}</small></p>
+            <hr class="w-50 mr-0">
+        </div>
+        {% else %}
+        <div class=text-left>
+            <p>
+                <b>{{ compose.created_by }}:</b>
+            </p>
+            <p>{{ compose.message }}<br>
+                <small>&nbsp;&nbsp;On {{compose.created_on.date }} at {{compose.created_on.time }}</small></p>
+            <hr class="w-50 ml-0">
+        </div>{% endif %} {% endfor %} {% else %} {% for compose in composes %} {% if compose.created_by == request.user.username %}
+        <div class=text-right>
+            <p>
+                <b>{{ compose.created_by }}:</b>
+            </p>
+            <p>{{ compose.message }}<br>
+                <small>&nbsp;&nbsp;On {{compose.created_on.date }} at {{compose.created_on.time }}</small></p>
+            <hr class="w-50 mr-0">
+        </div>{% else %}
+        <div class=text-left>
+            <p>
+                <b>{{ compose.created_by }}:</b>
+            </p>
+            <p>{{ compose.message }}<br>
+                <small>&nbsp;&nbsp;On {{compose.created_on.date }} at {{compose.created_on.time }}</small></p>
+            <hr class="w-50 ml-0">
+        </div> {% endif %} {% endfor %} {% endif %}
+        <div class="form-group disabled">
+            {{ form.message }}
+        </div>
+        <div class=text-right>
+            {% if request.user.is_staff %} {% else %}
+            <button class="btn btn-primary" type="submit" name="satisfied" value="satisfied">I am satisfied</button> {% endif %} {% if request.user.is_staff %} {% if message_status_data.status == 'Closed' %} <button type="submit" class="btn btn-primary"
+                name="send" value="send" hidden>Submit</button>{% else %}<button type="submit" class="btn btn-primary" name="send" value="send">Submit</button>{% endif %}{% else %}<button type="submit" class="btn btn-primary" name="send" value="send">Submit</button>            {% endif %}
+        </div>
+    </form>
+</div>
+{% endblock %}

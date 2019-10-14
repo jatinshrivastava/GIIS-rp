@@ -1,17 +1,25 @@
-{% extends "base_circular.html" %} {% block page_content %}
+{% extends "base_user.html" %} {% block page_content %}
 <div class="col-md-8 offset-md-2 mt-center">
     <h2>{{ circular.title }}</h2>
     <small>
         {{ circular.created_on.date }}&nbsp;
     </small>
     <p>{{ circular.body | linebreaks }}</p>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="CircularURLLabel"><strong>Circular URL:</strong></span>
+        </div>
+        <input type="text" value={{request.get_full_path}} class="form-control disabled" id="CircularURL">
+        <div class="input-group-append">
+            <button onclick="CopyFunction()" class="btn btn-md btn-outline-info m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Copy URL</button>
+        </div>
+    </div>
     <hr>
 </div>
 <div class="offset-md-2">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'compose' circular.pk%}'">Reply</button>
-        <button type="button" class="btn btn-primary">Complain</button>
-        <button type="button" class="btn btn-primary">Feedback</button>
+    <div class="btn-group" role="group" aria-label="Basic example">{% if user.is_staff %}
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'conversation_index' pcircular=circular.pk %}'">Communications</button> {% else %}
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url 'messages' pcircular=circular.pk receiver='Staff' %}'">Communicate</button>{% endif %}
     </div>
 </div>
 {% endblock %}

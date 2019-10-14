@@ -2,7 +2,7 @@
 <div class="col-md-8 offset-md-2 mt-center">
     <h2>List Of Circulars</h2>
     <hr> {% for circular in circulars %}
-    <h3 class="h3-responsive mt-5"><a class="black-text" href="{% url 'circular_detail' circular.pk%}">{{ circular.title }}</a></h3>
+    <h3 class="h3-responsive mt-5"><a class="black-text" href="{% url 'circular_detail' pcircular=circular.pk%}">{{ circular.title }}</a></h3>
     <small>
         {{ circular.created_on.date }} &nbsp;
     </small>
