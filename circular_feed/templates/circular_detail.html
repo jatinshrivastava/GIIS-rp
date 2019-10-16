@@ -9,7 +9,7 @@
         <div class="input-group-prepend">
             <span class="input-group-text" id="CircularURLLabel"><strong>Circular URL:</strong></span>
         </div>
-        <input type="text" value={{request.get_full_path}} class="form-control disabled" id="CircularURL">
+        <input type="text" value='http://jatinshrivastava.pythonanywhere.com{{request.get_full_path}}' class="form-control disabled" id="CircularURL">
         <div class="input-group-append">
             <button onclick="CopyFunction()" class="btn btn-md btn-outline-info m-0 px-3 py-2 z-depth-0 waves-effect" type="button" id="button-addon2">Copy URL</button>
         </div>
